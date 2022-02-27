@@ -4,30 +4,36 @@ import random
 import sys
 from termcolor import colored
 
-
-def get_random_word_from_text_file():
-    """Returns tuple containing random word from the word_list.txt file
-    in uppercase as well as entire word list.
-    """
-    with open("word_list.txt") as f:
-        words = f.read().upper().splitlines()
-        return [random.choice(words), words]
+with open('word_list.txt') as f:
+    words = f.read().upper().splitlines()
 
 
-def print_menu():
-    print("Let's play Wordle:")
-    print("Type a 5 letter word and hit enter!\n")
+def display_instructions():
+    print("\nLet's play Wordle!")
+    print("Type a 5 letter word and hit enter.")
+    print("Invalid words will be ignored.\n")
+
+
+def move_cursor():
+    # Move the cursor back to the previous line and erase text
+    sys.stdout.write('\x1b[1A')
+    sys.stdout.write('\x1b[2K')
 
 
 def play_game():
-    print_menu()
-    word, wordlist = get_random_word_from_text_file()
+    display_instructions()
+    word = random.choice(words)
 
+    # User has 6 tries to guess word. Invalid words are ignored.
     for attempt in range(1, 7):
-        guess = input().upper()
+        while True:
+            guess = input().upper()
+            if guess in words:
+                break
+            else:
+                move_cursor()
 
-        sys.stdout.write('\x1b[1A')
-        sys.stdout.write('\x1b[2K')
+        move_cursor()
 
         for i in range(min(len(guess), 5)):
             if guess[i] == word[i]:
@@ -52,8 +58,6 @@ if __name__ == '__main__':
         play_again = input("Let's play again! Press enter or type q to quit: ")
 
 
-# TODO: check if 5 letter word
-# TODO: check if in dictionary (while not in dictionary)
 # TODO: don't highlight duplicates
 # you can easily just set a flag to true at the beginning of the attempt loop,
 # and then set it to true in the one where we find it in the correct place.
