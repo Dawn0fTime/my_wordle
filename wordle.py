@@ -10,17 +10,22 @@ with open('word_list.txt') as f:
 
 def display_instructions():
     print("\nLet's play Wordle!")
-    print("Type a 5 letter word and hit enter")
+    print("Type a 5 letter word and hit enter.")
     print("Invalid words will be ignored.\n")
+
+
+def move_cursor():
+    # Move the cursor back to the previous line and erase text
+    sys.stdout.write('\x1b[1A')
+    sys.stdout.write('\x1b[2K')
 
 
 def play_game():
     display_instructions()
     word = random.choice(words)
 
+    # User has 6 tries to guess word. Invalid words are ignored.
     for attempt in range(1, 7):
-
-        guess = ''
         while True:
             guess = input().upper()
             if guess in words:
@@ -44,12 +49,6 @@ def play_game():
             break
         elif attempt == 6:
             print(colored(f'\nSorry, the Worldle is {word}.\n', 'red'))
-
-
-def move_cursor():
-    # Move the cursor back to the previous line and erase text
-    sys.stdout.write('\x1b[1A')
-    sys.stdout.write('\x1b[2K')
 
 
 if __name__ == '__main__':
