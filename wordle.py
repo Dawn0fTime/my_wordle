@@ -6,11 +6,13 @@ import sys
 
 import neotermcolor
 from neotermcolor import colored
+
 neotermcolor.set_color('yellow', 220)
 
 number_of_attempts = 6
 
-with open('word_list_6letters.txt') as f:
+# with open('word_list_6letters.txt') as f:
+with open('word_list.txt') as f:
     words = f.read().upper().splitlines()
 
 
@@ -69,7 +71,6 @@ if __name__ == '__main__':
         play_game()
         play_again = input("Let's play again! "
                            "Press enter or type q to quit: ").lower()
-
 
 # TODO: don't highlight duplicates
 # From YouTube comment:
