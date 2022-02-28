@@ -65,10 +65,12 @@ if __name__ == '__main__':
     play_again = ''
     while play_again != 'q':
         play_game()
-        play_again = input("Let's play again! Press enter or type q to quit: ")
+        play_again = input("Let's play again! "
+                           "Press enter or type q to quit: ").lower()
 
 
 # TODO: don't highlight duplicates
+# From YouTube comment:
 # you can easily just set a flag to true at the beginning of the attempt loop,
 # and then set it to true in the one where we find it in the correct place.
 # Then in the conditional where we check that it is in the word, but in the

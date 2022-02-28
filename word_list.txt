@@ -8,3 +8,9 @@ child
 weeks
 grown
 cable
+death
+taxes
+crash
+debug
+hacks
+linux
