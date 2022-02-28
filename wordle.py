@@ -1,8 +1,12 @@
 # Wordle clone using a custom word list.
-# Based on tutorial at https://replit.com/@JacobLower3/wordle-tutorial
+# Based on tutorial at https://replit.com/@JacobLower3/wordle-tutorial.
+# Assumes all words in word_list.txt are the same length.
 import random
 import sys
-from termcolor import colored
+
+import neotermcolor
+from neotermcolor import colored
+neotermcolor.set_color('yellow', 220)
 
 with open('word_list.txt') as f:
     words = f.read().upper().splitlines()
@@ -23,9 +27,12 @@ def move_cursor():
 def play_game():
     display_instructions()
     word = random.choice(words)
+    word_length = len(word)
+    number_of_attempts = 6
 
-    # User has 6 tries to guess word. Invalid words are ignored.
-    for attempt in range(1, 7):
+    # User has number_of_attempts tries to guess word.
+    # Invalid words are ignored.
+    for attempt in range(1, number_of_attempts + 1):
         while True:
             guess = input().upper()
             if guess in words:
@@ -35,7 +42,10 @@ def play_game():
 
         move_cursor()
 
-        for i in range(min(len(guess), 5)):
+        # If letter is in word and in correct spot, color it green. If
+        # letter is in word but not in correct spot, color it yellow. Else
+        # letter is not in word and is not colored.
+        for i in range(word_length):
             if guess[i] == word[i]:
                 print(colored(guess[i], 'green'), end='')
             elif guess[i] in word:
@@ -48,7 +58,7 @@ def play_game():
             print(colored(f'\nCongrats! You got the Wordle in {attempt} tries!\n', 'red'))
             break
         elif attempt == 6:
-            print(colored(f'\nSorry, the Worldle is {word}.\n', 'red'))
+            print(colored(f'\nSorry, the Wordle is {word}.\n', 'red'))
 
 
 if __name__ == '__main__':
