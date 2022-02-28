@@ -8,14 +8,17 @@ import neotermcolor
 from neotermcolor import colored
 neotermcolor.set_color('yellow', 220)
 
-with open('word_list.txt') as f:
+number_of_attempts = 6
+
+with open('word_list_6letters.txt') as f:
     words = f.read().upper().splitlines()
 
 
 def display_instructions():
     print("\nLet's play Wordle!")
-    print("Type a 5 letter word and hit enter.")
-    print("Invalid words will be ignored.\n")
+    print(f"Type a {len(words[0])} letter word and hit enter.")
+    print("Invalid words will be ignored.")
+    print(f"You have {number_of_attempts} attempts.\n")
 
 
 def move_cursor():
@@ -28,7 +31,6 @@ def play_game():
     display_instructions()
     word = random.choice(words)
     word_length = len(word)
-    number_of_attempts = 6
 
     # User has number_of_attempts tries to guess word.
     # Invalid words are ignored.
